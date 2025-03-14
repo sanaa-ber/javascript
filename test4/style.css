@@ -1,0 +1,168 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+#map-container {
+    flex: 3;
+    position: relative;
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+.controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+}
+
+#startSimulation, #pauseSimulation, #resetSimulation {
+    padding: 10px 15px;
+    margin-right: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#startSimulation {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#pauseSimulation {
+    background-color: #ff9800;
+    color: white;
+}
+
+#resetSimulation {
+    background-color: #f44336;
+    color: white;
+}
+
+#startSimulation:hover, #pauseSimulation:hover, #resetSimulation:hover {
+    opacity: 0.8;
+}
+
+/* Styles pour les étiquettes sur la carte */
+.bus-line-label {
+    background: rgba(0, 0, 255, 0.7);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.metro-ligne {
+    background: rgba(255, 165, 0, 0.7); 
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.train {
+    background: rgba(128, 0, 128, 0.7);  
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.tram {
+    background: red;  
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.connection-label {
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.leaflet-routing-container {
+    display: none !important;
+}
+
+/* Styles pour le mockup de téléphone */
+#phone-mockup {
+    flex: 1;
+    max-width:300px;
+    height: 100%;
+    border: 12px solid #222;
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.phone-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.phone-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.phone-app-header {
+    background-color: #2196F3;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.phone-app-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.phone-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.transport-tabs {
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;}

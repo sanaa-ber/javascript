@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Leaflet avec Itinéraire et Mockup Téléphone</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div id="map-container">
+            <div id="map"></div>
+            <div class="controls">
+                <button id="startSimulation">Démarrer</button>
+                <button id="pauseSimulation">Pause</button>
+                <button id="resetSimulation">Réinitialiser</button>
+            </div>
+        </div>
+        
+        <div id="phone-mockup">
+            <div class="phone-header">
+                <div class="phone-time">12:30</div>
+                <div class="phone-icons">
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <div class="phone-app-header">
+                <h3>WERILI</h3>
+            </div>
+            
+            <div class="phone-content">
+                <div class="transport-tabs">
+                    <button class="tab-button active" data-transport="bus">Bus</button>
+                    <button class="tab-button" data-transport="metro">Métro</button>
+                    <button class="tab-button" data-transport="train">Train</button>
+                    <button class="tab-button" data-transport="tram">Tram</button>
+                </div>
+                
+                <div class="transport-info active" id="bus-info">
+                    <div class="vehicle-status">
+                        <div class="status-icon bus-icon"><i class="fas fa-bus"></i></div>
+                        <div class="status-details">
+                            <h4>Bus en déplacement</h4>
+                            <div class="vehicle-location">Position actuelle: <span id="bus-current-location">Aïn Naâdja</span></div>
+                        </div>
+                    </div>
+                    <div class="next-stop">
+                        <h4>Prochain arrêt</h4>
+                        <div class="stop-name" id="bus-next-stop">Marché Aïn Naâdja</div>
+                        <div class="eta">
+                            <div>Distance: <span id="bus-next-distance">Loading...</span></div>
+                            <div>ETA: <span id="bus-next-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="terminus-info">
+                        <h4>Terminus</h4>
+                        <div class="stop-name">Place du 1er Mai</div>
+                        <div class="eta">
+                            <div>Distance totale: <span id="bus-terminus-distance">Loading...</span></div>
+                            <div>ETA terminus: <span id="bus-terminus-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="notifications" id="bus-notifications">
+                        <div class="notification-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Bus arrivé à l'arrêt Aïn Naâdja</span>
+                            <span class="notification-time">à l'instant</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transport-info" id="metro-info">
+                    <div class="vehicle-status">
+                        <div class="status-icon metro-icon"><i class="fas fa-subway"></i></div>
+                        <div class="status-details">
+                            <h4>Métro en déplacement</h4>
+                            <div class="vehicle-location">Position actuelle: <span id="metro-current-location">Aïn Naâdja</span></div>
+                        </div>
+                    </div>
+                    <div class="next-stop">
+                        <h4>Prochain arrêt</h4>
+                        <div class="stop-name" id="metro-next-stop">Gué de Constantine</div>
+                        <div class="eta">
+                            <div>Distance: <span id="metro-next-distance">Loading...</span></div>
+                            <div>ETA: <span id="metro-next-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="terminus-info">
+                        <h4>Terminus</h4>
+                        <div class="stop-name">1er Mai</div>
+                        <div class="eta">
+                            <div>Distance totale: <span id="metro-terminus-distance">Loading...</span></div>
+                            <div>ETA terminus: <span id="metro-terminus-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="notifications" id="metro-notifications">
+                        <div class="notification-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Métro arrivé à la station Aïn Naâdja</span>
+                            <span class="notification-time">à l'instant</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transport-info" id="train-info">
+                    <div class="vehicle-status">
+                        <div class="status-icon train-icon"><i class="fas fa-train"></i></div>
+                        <div class="status-details">
+                            <h4>Train en déplacement</h4>
+                            <div class="vehicle-location">Position actuelle: <span id="train-current-location">Aïn Naâdja</span></div>
+                        </div>
+                    </div>
+                    <div class="next-stop">
+                        <h4>Prochain arrêt</h4>
+                        <div class="stop-name" id="train-next-stop">Gué de Constantine</div>
+                        <div class="eta">
+                            <div>Distance: <span id="train-next-distance">Loading...</span></div>
+                            <div>ETA: <span id="train-next-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="terminus-info">
+                        <h4>Terminus</h4>
+                        <div class="stop-name">H.Day</div>
+                        <div class="eta">
+                            <div>Distance totale: <span id="train-terminus-distance">Loading...</span></div>
+                            <div>ETA terminus: <span id="train-terminus-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="notifications" id="train-notifications">
+                        <div class="notification-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Train arrivé à la gare Aïn Naâdja</span>
+                            <span class="notification-time">à l'instant</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transport-info" id="tram-info">
+                    <div class="vehicle-status">
+                        <div class="status-icon tram-icon"><i class="fas fa-tram"></i></div>
+                        <div class="status-details">
+                            <h4>Tram en déplacement</h4>
+                            <div class="vehicle-location">Position actuelle: <span id="tram-current-location">Caroubier</span></div>
+                        </div>
+                    </div>
+                    <div class="next-stop">
+                        <h4>Prochain arrêt</h4>
+                        <div class="stop-name" id="tram-next-stop">Tripoli-Maqqaria</div>
+                        <div class="eta">
+                            <div>Distance: <span id="tram-next-distance">Loading...</span></div>
+                            <div>ETA: <span id="tram-next-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="terminus-info">
+                        <h4>Terminus</h4>
+                        <div class="stop-name">Les Fusillés</div>
+                        <div class="eta">
+                            <div>Distance totale: <span id="tram-terminus-distance">Loading...</span></div>
+                            <div>ETA terminus: <span id="tram-terminus-eta">Loading...</span></div>
+                        </div>
+                    </div>
+                    <div class="notifications" id="tram-notifications">
+                        <div class="notification-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Tram arrivé à la station Caroubier</span>
+                            <span class="notification-time">à l'instant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phone-nav">
+                <div class="nav-button"><i class="fas fa-home"></i></div>
+                <div class="nav-button"><i class="fas fa-search"></i></div>
+                <div class="nav-button"><i class="fas fa-cog"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Fichier JavaScript -->
+    <script src="index.js"></script>
+</body>
+</html>
